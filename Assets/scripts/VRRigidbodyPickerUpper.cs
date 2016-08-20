@@ -4,7 +4,7 @@ using System.Collections;
 [RequireComponent(typeof(SteamVR_TrackedObject))]
 public class VRRigidbodyPickerUpper : MonoBehaviour
 {
-  public float ReleaseImpulseFactor = 250.0f;
+  public float ReleaseImpulseFactor = 125.0f;
   public float GrabRadius = 0.125f;
   public Valve.VR.EVRButtonId GrabButton = Valve.VR.EVRButtonId.k_EButton_SteamVR_Trigger;
   public LayerMask GrabLayer = -1;
@@ -34,7 +34,6 @@ public class VRRigidbodyPickerUpper : MonoBehaviour
     // Put thing in position
     if(m_TargetRigidbody) {
       m_TargetRigidbody.transform.position = this.transform.position;
-      m_TargetRigidbody.transform.rotation = this.transform.rotation;
     }
 
     // Update current speed of controller (according the Physics engine)
