@@ -4,10 +4,13 @@ using System.Collections;
 [RequireComponent(typeof(SteamVR_TrackedObject))]
 public class VRRigidbodyPickerUpper : MonoBehaviour
 {
+  public float ReleaseImpulseFactor = 250.0f;
   public float GrabRadius = 0.125f;
   public Valve.VR.EVRButtonId GrabButton = Valve.VR.EVRButtonId.k_EButton_SteamVR_Trigger;
   public LayerMask GrabLayer = -1;
-  
+
+  protected Vector3 m_LastPosition;
+  protected Vector3 m_CurrentVelocity;
   protected bool m_IsGrabbing = false;
   protected Rigidbody m_TargetRigidbody;
   protected SteamVR_TrackedObject m_TrackedObject;
@@ -16,6 +19,7 @@ public class VRRigidbodyPickerUpper : MonoBehaviour
 
   protected void Awake() {
     m_TrackedObject = GetComponent<SteamVR_TrackedObject>();
+    m_LastPosition = this.transform.position;
   }
   
   protected void Update() {
@@ -31,6 +35,14 @@ public class VRRigidbodyPickerUpper : MonoBehaviour
     if(m_TargetRigidbody) {
       m_TargetRigidbody.transform.position = this.transform.position;
       m_TargetRigidbody.transform.rotation = this.transform.rotation;
+    }
+
+    // Update current speed of controller (according the Physics engine)
+    m_CurrentVelocity = this.transform.position - m_LastPosition;
+    m_LastPosition = this.transform.position;
+
+    if(m_IsGrabbing) {
+      Debug.Log(this.transform.position + ", " + m_LastPosition + ", " + Time.deltaTime + ": " + m_CurrentVelocity);
     }
   }
 
@@ -59,8 +71,9 @@ public class VRRigidbodyPickerUpper : MonoBehaviour
       if(m_TargetRigidbody) {
 	m_TargetRigidbody.isKinematic = true;
       }
-    } else if(m_TargetRigidbody) {
+    } else if(!m_IsGrabbing && m_TargetRigidbody) {
       m_TargetRigidbody.isKinematic = false;
+      m_TargetRigidbody.AddForce(ReleaseImpulseFactor*m_CurrentVelocity, ForceMode.VelocityChange);
       m_TargetRigidbody = null;
     }
   }
