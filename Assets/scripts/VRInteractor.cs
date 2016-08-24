@@ -17,7 +17,7 @@ public class VRInteractor : MonoBehaviour
   }
 
   protected void Update() {
-    if(m_Controller != null) {
+    if(m_Controller != null && m_Controller.GetPressDown(InteractButton)) {
       double closest_distance = System.Double.MaxValue;
       Collider[] proximity_colliders = Physics.OverlapSphere(this.transform.position, InteractRadius, InteractLayer, QueryTriggerInteraction.Collide);
       VRInteractable target_interactable = null;
