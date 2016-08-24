@@ -44,7 +44,7 @@ public class VRInteractor : MonoBehaviour
   }
 
   protected void OnDrawGizmos() {
-    Gizmos.color = Color.green;
-    Gizmos.DrawSphere(transform.position, InteractRadius);
+    Gizmos.color = Color.yellow;
+    Gizmos.DrawWireSphere(transform.position, InteractRadius);
   }
 }
