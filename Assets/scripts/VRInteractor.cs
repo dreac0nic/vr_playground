@@ -12,6 +12,7 @@ public class VRInteractor : MonoBehaviour
   public bool AllowRigidbodies = true;
   public bool StickyRigidbodies = false; // Requires the release button be pushed to drop a rigidbody.
   public bool AlignRigidbodies = false;
+  public float RigidbodyReleaseForceFactor = 100.0f;
 
   [Header("Filtering")]
   public float InteractRadius = 0.125f;
@@ -31,15 +32,18 @@ public class VRInteractor : MonoBehaviour
 
   protected void Update() {
     if(m_HeldRigidbody) {
-      if((StickyRigidbodies && m_Controller != null && m_Controller.GetPressDown(ReleaseButton)) || (m_Controller == null || !m_Controller.GetPressDown(InteractButton))) {
-	// TODO: Release controller
+      // If rigidbody is let go, release it, otherwise lock the rigidbody to the controller
+      if(false && (StickyRigidbodies && m_Controller != null && m_Controller.GetPressDown(ReleaseButton)) || (m_Controller == null || !m_Controller.GetPressDown(InteractButton))) {
+	release();
       } else {
-	// TODO: Anchor rigidbody to controller
+	Debug.Log("Holding rigidbody: " + m_HeldRigidbody.gameObject.name);
+	m_HeldRigidbody.transform.position = this.transform.position;
+	m_HeldRigidbody.transform.rotation = this.transform.rotation;
       }
     } else {
       // If attempting to interact, check for objects
       if(m_Controller != null && m_Controller.GetPressDown(InteractButton)) {
-	getItem();
+	pickup();
       }
     }
   }
@@ -49,7 +53,9 @@ public class VRInteractor : MonoBehaviour
     Gizmos.DrawWireSphere(transform.position, InteractRadius);
   }
 
-  protected void getItem() {
+  protected void pickup() {
+    Debug.Log("PICKING UP");
+    
     // TODO: Make public and allow to give an item specifically
     double interactable_distance = System.Double.MaxValue;
     double rigidbody_distance = System.Double.MaxValue;
@@ -85,7 +91,19 @@ public class VRInteractor : MonoBehaviour
       m_HeldInteractable = target_interactable;
       target_interactable.Interact(this);
     } else if(target_rigidbody) {
+      Debug.Log("Picking up rigidbody: " + target_rigidbody.gameObject.name);
       m_HeldRigidbody = target_rigidbody;
+      m_HeldRigidbody.isKinematic = true;
     }
+  }
+
+  protected void release() {
+    Debug.Log("Releasing ");
+    if(m_HeldRigidbody) {
+      m_HeldRigidbody.isKinematic = false;
+    }
+
+    m_HeldRigidbody = null;
+    m_HeldInteractable = null;
   }
 }
