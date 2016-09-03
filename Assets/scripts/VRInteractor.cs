@@ -4,7 +4,7 @@ using System.Collections;
 [RequireComponent(typeof(SteamVR_TrackedObject))]
 public class VRInteractor : MonoBehaviour
 {
-  [Header("Controls")]
+  [Header("Controls")] 
   public Valve.VR.EVRButtonId InteractButton = Valve.VR.EVRButtonId.k_EButton_SteamVR_Trigger;
   public Valve.VR.EVRButtonId ReleaseButton = Valve.VR.EVRButtonId.k_EButton_Grip;
 
@@ -31,6 +31,11 @@ public class VRInteractor : MonoBehaviour
 
   protected void Update() {
     if(m_HeldRigidbody) {
+      if((StickyRigidbodies && m_Controller != null && m_Controller.GetPressDown(ReleaseButton)) || (m_Controller == null || !m_Controller.GetPressDown(InteractButton))) {
+	// TODO: Release controller
+      } else {
+	// TODO: Anchor rigidbody to controller
+      }
     } else {
       // If attempting to interact, check for objects
       if(m_Controller != null && m_Controller.GetPressDown(InteractButton)) {
