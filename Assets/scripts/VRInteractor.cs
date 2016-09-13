@@ -26,11 +26,16 @@ public class VRInteractor : MonoBehaviour
 
   protected void Update() {
     if(IsHoldingObject) {
+      if(m_Controller != null && m_Controller.GetPressDown(ReleaseButton)) {
+	release();
+      }
     } else {
       if(m_Controller != null && m_Controller.GetPressDown(InteractButton)) {
+	pickup(findInteractable());
       }
     }
   }
+  
   protected void OnDrawGizmos() {
     Gizmos.color = Color.yellow;
     Gizmos.DrawWireSphere(transform.position, InteractRadius);
