@@ -12,4 +12,8 @@ public class VRInteractable : MonoBehaviour
   public virtual void Interact(VRInteractor interactor) {
     Debug.Log(this.gameObject.name + " has been interacted with by " + interactor.gameObject.name);
   }
+
+  public virtual void Release(VRInteractor interactor) {
+    Debug.Log(this.gameObject.name + " has been released by " + interactor.gameObject.name);
+  }
 }
