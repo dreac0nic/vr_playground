@@ -47,5 +47,15 @@ public class VRInteractor : MonoBehaviour
     return false;
   }
 
+  protected bool release() {
+    if(IsHoldingObject) {
+      m_HeldInteractable.Release(this);
+      m_HeldInteractable = null;
+      
+      return true;
+    }
+
+    return false;
+  }
   }
 }
