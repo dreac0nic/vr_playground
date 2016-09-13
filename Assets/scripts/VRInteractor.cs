@@ -29,7 +29,10 @@ public class VRInteractor : MonoBehaviour
     } else {
       if(m_Controller != null && m_Controller.GetPressDown(InteractButton)) {
 	// Jump up and down
+	// Some more to see
+	// That's a way to todo it
 	// Or don't
+	// Whatever
 	// It's okay
       }
     }
@@ -39,6 +42,7 @@ public class VRInteractor : MonoBehaviour
   // Some here too
   protected void OnDrawGizmos() {
     Gizmos.color = Color.yellow;
+    // Yep
     Gizmos.DrawWireSphere(transform.position, InteractRadius);
   }
 
