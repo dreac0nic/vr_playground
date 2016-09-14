@@ -65,15 +65,15 @@ public class VRInteractor : MonoBehaviour
 
   protected VRInteractable findInteractable() {
     double closest_distance = System.Double.MaxValue;
-    Collider[] colliders = Physics.OverlapSphere(this.transform.position, InteractRadius, InteractFilter, QueryTriggerInteraction.Collider);
+    Collider[] colliders = Physics.OverlapSphere(this.transform.position, InteractRadius, InteractFilter, QueryTriggerInteraction.Collide);
     VRInteractable target_interactable = null;
 
     // Find the closest interactable object
     foreach(Collider possible_interactable in colliders) {
-      VRInteractable marked_interactable = possible_interactable.GetComponentInParrent<VRInteractable>();
+      VRInteractable marked_interactable = possible_interactable.GetComponentInParent<VRInteractable>();
 
       if(marked_interactable && marked_interactable.IsInteractable(this)) {
-	double distance = (interactable.transform.position - this.transform.position).sqrMagnitude;
+	double distance = (marked_interactable.transform.position - this.transform.position).sqrMagnitude;
 
 	if(distance < closest_distance) {
 	  closest_distance = distance;
