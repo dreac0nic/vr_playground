@@ -44,7 +44,7 @@ public class VRInteractor : MonoBehaviour
   protected bool pickup(VRInteractable target) {
     if(target != null && target.IsInteractable(this)) {
       m_HeldInteractable = target;
-      target.Interact(this);
+      target.BroadcastMessage("Interact", this, SendMessageOptions.DontRequireReceiver);
 
       return true;
     }
@@ -54,7 +54,7 @@ public class VRInteractor : MonoBehaviour
 
   protected bool release() {
     if(IsHoldingObject) {
-      m_HeldInteractable.Release(this);
+      m_HeldInteractable.BroadcastMessage("Release", this, SendMessageOptions.DontRequireReceiver);
       m_HeldInteractable = null;
       
       return true;
