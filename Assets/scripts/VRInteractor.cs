@@ -43,7 +43,10 @@ public class VRInteractor : MonoBehaviour
 
   protected bool pickup(VRInteractable target) {
     if(target != null && target.IsInteractable(this)) {
-      m_HeldInteractable = target;
+      if(target.IsPickupable) {
+	m_HeldInteractable = target;
+      }
+      
       target.BroadcastMessage("Interact", this, SendMessageOptions.DontRequireReceiver);
 
       return true;
