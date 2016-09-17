@@ -43,11 +43,13 @@ public class VRInteractor : MonoBehaviour
 
   protected bool pickup(VRInteractable target) {
     if(target != null && target.IsInteractable(this)) {
-      if(target.IsPickupable) {
-	m_HeldInteractable = target;
-      }
-      
       target.BroadcastMessage("Interact", this, SendMessageOptions.DontRequireReceiver);
+      
+      if(target.IsPickupable) {
+	m_HeldObject = target.gameObject
+	m_HeldInteractable = target;
+	m_HeldRigidbody = target.GetComponentInParent<Rigidbody>();
+      }
 
       return true;
     }
@@ -58,7 +60,9 @@ public class VRInteractor : MonoBehaviour
   protected bool release() {
     if(IsHoldingObject) {
       m_HeldInteractable.BroadcastMessage("Release", this, SendMessageOptions.DontRequireReceiver);
+      m_HeldObject = null;
       m_HeldInteractable = null;
+      m_HeldRigidbody = null;
       
       return true;
     }
