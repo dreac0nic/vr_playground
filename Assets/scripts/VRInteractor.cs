@@ -69,26 +69,43 @@ public class VRInteractor : MonoBehaviour
 
     return false;
   }
-
-  protected VRInteractable findInteractable() {
-    double closest_distance = System.Double.MaxValue;
+  
+  protected GameObject findInteractableObject() {
+    double interactable_closest_distance = System.Double.MaxValue;
+    double rigibody_closest_distance = System.Double.MaxValue;
+    GameObject target_object;
+    
     Collider[] colliders = Physics.OverlapSphere(this.transform.position, InteractRadius, InteractFilter, QueryTriggerInteraction.Collide);
-    VRInteractable target_interactable = null;
 
     // Find the closest interactable object
-    foreach(Collider possible_interactable in colliders) {
-      VRInteractable marked_interactable = possible_interactable.GetComponentInParent<VRInteractable>();
+    foreach(Collider possible_target in colliders) {
+      GameObject possible_object = null;
+      VRInteractable marked_interactable = possible_target.GetComponentInParent<VRInteractable>();
 
-      if(marked_interactable && marked_interactable.IsInteractable(this)) {
+      // Check for a possible interactable or a rigidbody
+      if(marked_interactable) {
+	if(marked_interactable.IsInteractable(this)) {
+	  possible_object = marked_interactable.gameObject;
+	}
+      } else {
+	Rigidbody marked_rigidbody = possible_target.GetComponentInParent<Rigidbody>();
+
+	if(marked_rigidbody) {
+	  possible_object = marked_rigidbody.gameObject;
+	}
+      }
+
+      // If we found an acceptable object, calculate and compare the distance
+      if(possible_object) {
 	double distance = (marked_interactable.transform.position - this.transform.position).sqrMagnitude;
 
 	if(distance < closest_distance) {
 	  closest_distance = distance;
-	  target_interactable = marked_interactable;
+	  target_object = possible_object;
 	}
       }
     }
     
-    return target_interactable;
+    return target_object;
   }
 }
