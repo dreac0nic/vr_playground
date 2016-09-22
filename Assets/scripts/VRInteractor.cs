@@ -97,7 +97,7 @@ public class VRInteractor : MonoBehaviour
 
       // If we found an acceptable object, calculate and compare the distance
       if(possible_object) {
-	double distance = (marked_interactable.transform.position - this.transform.position).sqrMagnitude;
+	double distance = (possible_object.transform.position - this.transform.position).sqrMagnitude;
 
 	if(distance < closest_distance) {
 	  closest_distance = distance;
