@@ -44,6 +44,13 @@ public class VRInteractor : MonoBehaviour
 
   protected void Update() {
     if(IsHoldingObject) {
+      // If holding a pure rigidbody, update its position
+      if(!m_HeldInteractable) {
+	m_HeldRigidbody.transform.position = this.transform.position;
+	m_HeldRigidbody.transform.rotation = this.transform.rotation;
+      }
+
+      // Release the object if the release button is pressed
       if(Controller != null && Controller.GetPressDown(ReleaseButton)) {
 	release();
       }
