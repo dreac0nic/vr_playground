@@ -44,6 +44,21 @@ public class VRInteractor : MonoBehaviour
   protected bool pickup(GameObject target) {
     if(target != null) {
       VRInteractable interactable = target.GetComponent<VRInteractable>();
+
+      if(interactable && interactable.IsInteractable) {
+	if(interactable.IsPickupable) {
+	  m_HeldObject = interactable.gameObject;
+	  interactable.Pickup(this);
+	} else {
+	  interactable.Interact(this);
+	}
+      } else if(!interactable) {
+	Rigidbody body = target.GetComponent<Rigidbody>();
+
+	if(body) {
+	  body.isKinematic = true;
+	  m_HeldObject = body.gameObject;
+	}
       }
 
       return m_HeldObject != null;
