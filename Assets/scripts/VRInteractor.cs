@@ -88,7 +88,13 @@ public class VRInteractor : MonoBehaviour
 
   protected bool release() {
     if(IsHoldingObject) {
-      m_HeldInteractable.BroadcastMessage("Release", this, SendMessageOptions.DontRequireReceiver);
+      if(m_HeldInteractable) {
+	m_HeldInteractable.Release(this);
+      } else {
+	// Release a pure rigidbody
+	m_HeldRigidbody.isKinematic = false;
+      }
+      
       m_HeldObject = null;
       
       return true;

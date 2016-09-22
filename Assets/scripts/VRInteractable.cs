@@ -21,8 +21,6 @@ public class VRInteractable : MonoBehaviour
     }
   }
 
-  public virtual void Release(VRInteractor interactor) {
-    Debug.Log(this.gameObject.name + " has been released by " + interactor.gameObject.name);
   public virtual void Pickup(VRInteractor interactor) {
     if(IsInteractable && IsPickupable) {
       Debug.Log(this.gameObject.name + " has been picked up by " + interactor.gameObject.name);
@@ -31,7 +29,10 @@ public class VRInteractable : MonoBehaviour
     }
   }
 
+  public virtual void Release(VRInteractor interactor) {
     if(m_Holder == interactor) {
+      Debug.Log(this.gameObject.name + " has been released by " + interactor.gameObject.name);
+      
       m_Holder = null;
     }
   }
