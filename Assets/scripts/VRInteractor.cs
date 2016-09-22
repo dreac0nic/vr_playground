@@ -41,14 +41,9 @@ public class VRInteractor : MonoBehaviour
     Gizmos.DrawWireSphere(transform.position, InteractRadius);
   }
 
-  protected bool pickup(VRInteractable target) {
-    if(target != null && target.IsInteractable(this)) {
-      target.BroadcastMessage("Interact", this, SendMessageOptions.DontRequireReceiver);
-      
-      if(target.IsPickupable) {
-	m_HeldObject = target.gameObject
-	m_HeldInteractable = target;
-	m_HeldRigidbody = target.GetComponentInParent<Rigidbody>();
+  protected bool pickup(GameObject target) {
+    if(target != null) {
+      VRInteractable interactable = target.GetComponent<VRInteractable>();
       }
 
       return m_HeldObject != null;
