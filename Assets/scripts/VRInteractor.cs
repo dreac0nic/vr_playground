@@ -71,9 +71,8 @@ public class VRInteractor : MonoBehaviour
   }
   
   protected GameObject findInteractableObject() {
-    double interactable_closest_distance = System.Double.MaxValue;
-    double rigibody_closest_distance = System.Double.MaxValue;
-    GameObject target_object;
+    double closest_distance = System.Double.MaxValue;
+    GameObject target_object = null;
     
     Collider[] colliders = Physics.OverlapSphere(this.transform.position, InteractRadius, InteractFilter, QueryTriggerInteraction.Collide);
 
