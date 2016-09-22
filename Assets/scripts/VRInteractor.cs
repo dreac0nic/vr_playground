@@ -14,11 +14,29 @@ public class VRInteractor : MonoBehaviour
 
   protected SteamVR_TrackedObject m_TrackedObject;
   protected VRInteractable m_HeldInteractable = null;
+  protected Rigidbody m_HeldRigidbody = null;
+
+  private GameObject __HeldObject = null;
   
   public bool IsHoldingObject { get { return m_HeldInteractable != null; } }
   public GameObject HeldObject { get { return m_HeldInteractable.gameObject; } }
   
   public SteamVR_Controller.Device Controller { get { return (m_TrackedObject ? SteamVR_Controller.Input((int)m_TrackedObject.index) : null); } }
+
+  protected GameObject m_HeldObject {
+    get { return __HeldObject; }
+    set {
+      if(value == null) {
+	m_HeldInteractable = null;
+	m_HeldRigidbody = null;
+      } else {
+	m_HeldInteractable = value.GetComponent<VRInteractable>();
+	m_HeldRigidbody = value.GetComponent<Rigidbody>();
+      }
+
+      __HeldObject = value;
+    }
+  }
 
   protected void Awake() {
     m_TrackedObject = GetComponent<SteamVR_TrackedObject>();
@@ -71,8 +89,6 @@ public class VRInteractor : MonoBehaviour
     if(IsHoldingObject) {
       m_HeldInteractable.BroadcastMessage("Release", this, SendMessageOptions.DontRequireReceiver);
       m_HeldObject = null;
-      m_HeldInteractable = null;
-      m_HeldRigidbody = null;
       
       return true;
     }
