@@ -84,7 +84,7 @@ public class VRInteractor : MonoBehaviour
 
       // Check for a possible interactable or a rigidbody
       if(marked_interactable) {
-	if(marked_interactable.IsInteractable(this)) {
+	if(marked_interactable.IsInteractable) {
 	  possible_object = marked_interactable.gameObject;
 	}
       } else {
