@@ -18,8 +18,8 @@ public class VRInteractor : MonoBehaviour
 
   private GameObject __HeldObject = null;
   
-  public bool IsHoldingObject { get { return m_HeldInteractable != null; } }
-  public GameObject HeldObject { get { return m_HeldInteractable.gameObject; } }
+  public bool IsHoldingObject { get { return m_HeldObject != null; } }
+  public GameObject HeldObject { get { return m_HeldObject; } }
   
   public SteamVR_Controller.Device Controller { get { return (m_TrackedObject ? SteamVR_Controller.Input((int)m_TrackedObject.index) : null); } }
 
