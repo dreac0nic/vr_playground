@@ -100,6 +100,11 @@ public class VRInteractor : MonoBehaviour
       } else {
 	// Release a pure rigidbody
 	m_HeldRigidbody.isKinematic = false;
+
+	if(Controller != null) {
+	  m_HeldRigidbody.AddForce(Controller.velocity, ForceMode.VelocityChange);
+	  m_HeldRigidbody.AddTorque(Controller.angularVelocity, ForceMode.VelocityChange);
+	}
       }
       
       m_HeldObject = null;
