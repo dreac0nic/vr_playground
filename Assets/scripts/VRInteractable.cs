@@ -11,13 +11,11 @@ public class VRInteractable : MonoBehaviour
   public bool IsInteractable { get { return InteractionEnabled; } }
   public bool IsPickupable { get { return PickupEnabled; } }
 
+  // TODO: Broadcast to object
+  //       m_HeldInteractable.BroadcastMessage("Release", this, SendMessageOptions.DontRequireReceiver);
   public virtual void Interact(VRInteractor interactor) {
     if(IsInteractable) {
       Debug.Log(this.gameObject.name + " has been interacted with by " + interactor.gameObject.name);
-      
-      if(IsPickupable) {
-	m_Holder = interactor;
-      }
     }
   }
 
