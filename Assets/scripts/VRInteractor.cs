@@ -51,7 +51,7 @@ public class VRInteractor : MonoBehaviour
 	m_HeldRigidbody = target.GetComponentInParent<Rigidbody>();
       }
 
-      return true;
+      return m_HeldObject != null;
     }
 
     return false;
