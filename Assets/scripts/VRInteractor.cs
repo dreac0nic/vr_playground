@@ -48,8 +48,9 @@ public class VRInteractor : MonoBehaviour
 	release();
       }
     } else {
+      // Pickup a discovered object if the interact button is pushed
       if(Controller != null && Controller.GetPressDown(InteractButton)) {
-	pickup(findInteractable());
+	pickup(findInteractableObject());
       }
     }
   }
