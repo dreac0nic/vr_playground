@@ -27,7 +27,7 @@ public class VRInteractable : MonoBehaviour
 
       m_Holder = interactor;
 
-      this.gameObject.Broadcast("OnPickup", interactor, SendMessageOptions.DontRequireReceiver)
+      this.gameObject.BroadcastMessage("OnPickup", interactor, SendMessageOptions.DontRequireReceiver);
     }
   }
 
@@ -37,7 +37,7 @@ public class VRInteractable : MonoBehaviour
       
       m_Holder = null;
 
-      this.gameObject.Broadcast("OnRelease", interactor, SendMessageOptions.DontRequireReceiver);
+      this.gameObject.BroadcastMessage("OnRelease", interactor, SendMessageOptions.DontRequireReceiver);
     }
   }
 }
