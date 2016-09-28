@@ -28,7 +28,14 @@ public class VRHoldable : MonoBehaviour
   }
 
   public void OnRelease(VRInteractor old_interactor) {
+    // TODO: Check if the interactor is the same as the holder?
     m_CurrentInteractor = null;
     m_Rigidbody.isKinematic = false;
+
+    // Apply current force the interactor
+    if(old_interactor.Controller != null) {
+      m_Rigidbody.AddForce(old_interactor.Controller.velocity, ForceMode.VelocityChange);
+      m_Rigidbody.AddTorque(old_interactor.Controller.angularVelocity, ForceMode.VelocityChange);
+    }
   }
 }
