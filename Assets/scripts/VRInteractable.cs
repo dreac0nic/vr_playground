@@ -16,6 +16,8 @@ public class VRInteractable : MonoBehaviour
   public virtual void Interact(VRInteractor interactor) {
     if(IsInteractable) {
       Debug.Log(this.gameObject.name + " has been interacted with by " + interactor.gameObject.name);
+
+      // TODO: Actually receive button presses.
     }
   }
 
@@ -24,6 +26,8 @@ public class VRInteractable : MonoBehaviour
       Debug.Log(this.gameObject.name + " has been picked up by " + interactor.gameObject.name);
 
       m_Holder = interactor;
+
+      this.gameObject.Broadcast("OnPickup", interactor, SendMessageOptions.DontRequireReceiver)
     }
   }
 
@@ -32,6 +36,8 @@ public class VRInteractable : MonoBehaviour
       Debug.Log(this.gameObject.name + " has been released by " + interactor.gameObject.name);
       
       m_Holder = null;
+
+      this.gameObject.Broadcast("OnRelease", interactor, SendMessageOptions.DontRequireReceiver);
     }
   }
 }
