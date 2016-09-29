@@ -11,6 +11,8 @@ public class VRInteractable : MonoBehaviour
   public bool IsInteractable { get { return InteractionEnabled; } }
   public bool IsPickupable { get { return PickupEnabled; } }
 
+  public VRInteractor Holder { get { return m_Holder; } }
+
   // TODO: Broadcast to object
   //       m_HeldInteractable.BroadcastMessage("Release", this, SendMessageOptions.DontRequireReceiver);
   public virtual void Interact(VRInteractor interactor) {
