@@ -19,7 +19,8 @@ public class VRInteractable : MonoBehaviour
     if(IsInteractable) {
       Debug.Log(this.gameObject.name + " has been interacted with by " + interactor.gameObject.name);
 
-      // TODO: Actually receive button presses.
+      // TODO: Actually broadcast button presses. Maybe
+      this.gameObject.BroadcastMessage("OnInteract", interactor, SendMessageOptions.DontRequireReceiver);
     }
   }
 
