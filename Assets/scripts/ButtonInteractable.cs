@@ -23,7 +23,7 @@ public class ButtonInteractable : MonoBehaviour
   }
   
   public void OnInteract(VRInteractor interactor) {
-    if(ToggleState) {
+    if(ToggleSwitch) {
       m_State = !m_State;
     } else {
       m_State = true;
