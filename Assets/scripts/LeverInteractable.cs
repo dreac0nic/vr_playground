@@ -14,7 +14,7 @@ public class LeverInteractable : MonoBehaviour
 
   public void Update() {
     if(m_Interactable.Holder) {
-      LeverPivot.LookAt(m_Interactable.Holder);
+      LeverPivot.LookAt(m_Interactable.Holder.gameObject.transform);
     }
   }
 }
