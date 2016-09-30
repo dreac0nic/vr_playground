@@ -2,7 +2,7 @@ using UnityEngine;
 using System.Collections;
 
 [RequireComponent(typeof(VRInteractable))]
-public class ButtonInteractable : MonoBeviour
+public class ButtonInteractable : MonoBehaviour
 {
   public bool ToggleSwitch = false;
 
